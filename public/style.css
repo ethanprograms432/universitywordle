@@ -1,0 +1,114 @@
+
+html {
+
+    background-image: url('res/background1.png');
+    background-size: cover;
+
+}
+
+* {
+
+    font-family: 'Georgia';
+    text-align: center;
+}
+
+#title {
+
+    color: white;
+    background-color: green;
+    border: 1px solid green;
+
+
+
+}
+
+.wordle-grid div {
+
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+
+}
+
+.row1 {
+
+    top: 200px;
+
+
+}
+
+.row2 {
+
+    top: 280px;
+
+
+}
+
+.row3 {
+
+    top: 360px;
+
+
+}
+
+.row4 {
+
+    top: 440px;
+
+
+}
+
+.row5 {
+
+    top: 520px;
+
+
+}
+
+.column1 {
+
+    left: 760px;
+
+
+}
+
+.column2 {
+
+    left: calc(760px + 80px);
+
+
+}
+
+.column3 {
+
+    left: calc(760px + 160px);
+
+
+}
+
+.column4 {
+
+    left: calc(760px + 240px);
+
+
+}
+
+.column5 {
+
+    left: calc(760px + 320px);
+
+
+}
+
+
+#not-included-1 , #not-included-2, #not-included-3, #not-included-4, #not-included-5 {
+
+    visibility: hidden;
+}
+
+#not-included-1 > * , #not-included-2 > *, #not-included-3 > *, #not-included-4 > *, #not-included-5 > * {
+
+    visibility: visible;
+}

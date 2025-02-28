@@ -1,0 +1,28 @@
+{
+  "name": "universitywordle",
+  "version": "1.0.0",
+  "description": "A university wordle game for anyone to play, and guess university related words",
+  "main": "express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethanprograms432/universitywordle.git"
+  },
+  "author": "Ethan James",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ethanprograms432/universitywordle/issues"
+  },
+  "homepage": "https://github.com/ethanprograms432/universitywordle#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "pg": "^8.13.3",
+    "postgres": "^3.4.5"
+  }
+}
