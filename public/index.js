@@ -9,16 +9,15 @@ async function getRandomWord() {
 
     if(response.ok) {
 
-        const result = response.json()
+        const result = await response.json()
 
-        word = result["word"]
+        word = result.word
 
     } else {
 
         word = "ERROR"
 
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -224,11 +223,51 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if(currentSlot !== 0 && currentSlot % 5 !== 0) {
     
                     wordleSlots[currentSlot-1].innerText = "";
+                    wordleSlots[currentSlot-1].style.backgroundColor = 'white';
                     currentSlot--    
                 }
                 break;
         }
     
+        if(currentSlot === 5 || currentSlot === 10 || currentSlot === 15 || currentSlot === 20 || currentSlot === 25)
+        {
+
+            colorLetters(currentSlot)
+
+        }
     })
 })
+
+function colorLetters(num) {
+
+    let guessedWord = ''
+    let j = 0
+
+    for (let i = num - 5; i < num; i++) {
+
+        guessedWord += wordleSlots[i].innerText
+
+    }
+
+    for (let i = num - 5; i < num; i++)
+    {
+
+        if(guessedWord.charAt(j) !== word.charAt(j)) {
+
+            if(word.includes(guessedWord.charAt(j))) {
+
+                wordleSlots[i].style.backgroundColor = 'yellow'
+
+            }
+
+        } else {
+
+             wordleSlots[i].style.backgroundColor = 'green'
+
+        }
+        j++
+
+    }
+
+}
 
