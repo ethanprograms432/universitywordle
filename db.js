@@ -8,6 +8,8 @@ const pool = new Pool({
     }
 })
 
+// WORDLE RELATED QUERIES
+
 const getWord = (request,response) => {
 
     const word = request.params.word
@@ -18,10 +20,10 @@ const getWord = (request,response) => {
 
             if(error) {
 
-                throw(error)
+                response.status(500).json({error: error.message});
             } else {
 
-                return results.rows[0];
+                response.json(results.rows[0]);
 
             }
  
@@ -38,10 +40,10 @@ const getWords = (request,response) => {
 
             if(error) {
 
-                throw(error)
+                results.status(500).json({ error: error.message })
             } else {
 
-                return results.rows;
+                response.json(results.rows);
 
             }
  
@@ -50,49 +52,74 @@ const getWords = (request,response) => {
 
 }
 
-const getNumWords = () => {
+const getNumWords = async () => {
 
-    let numWords = 0
-
-    pool.query('SELECT COUNT(*) FROM Words;',(error,results) => {
-
-        if(error)
-        {
-
-            throw(error)
-        } else {
-
-            return results.rows[0];
-
-        }
-        
-
-    })
+    try {
+        const results = await pool.query('SELECT COUNT(*) FROM Words;');
+        return results.rows[0]; // ✅ Returns an object like { count: '5' }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 
 }
-const selectRandomWord = (request,response) => {
+const selectRandomWord = async (request,response) => {
 
-    let numWords = getNumWords();
+    try {
+        let numWords = await getNumWords();
+        let numWordCount = Number(numWords.count); // Convert to number
 
-    let randomWordId = Math.ceil(Math.random() * numWords);
+        let randomWordId = Math.ceil(Math.random() * Math.max(numWordCount, 1));
 
-    pool.query('SELECT * FROM Words WHERE id = $1',[randomWordId],
+        const results = await pool.query('SELECT * FROM Words WHERE id = $1', [randomWordId]);
 
-        (error,results) => {
+        response.json(results.rows[0]); // Send JSON response
 
-            if(error) {
+    } catch (error) {
+        response.status(500).json({ error: error.message });
+    }
 
-                throw(error)
-            } else {
+}
 
-                return results.rows[0];
+//USER RELATED QUERIES
 
+const registerUser = async (username,password) => {
+
+
+    try {
+
+        await pool.query('INSERT INTO WordleUsers VALUES ($1, $2);',[username,password],
+
+            (error,results) => {
+
+                if(error) {
+
+                    throw(error)
+                }
             }
- 
-        }
-    )
+        )
+
+    } catch(error) {
+
+        throw(error)
+
+    }
 
 }
 
-module.exports = {selectRandomWord, getWord, getWords}
+const checkIfUserExists = async (username) => {
+    try {
+        const results = await pool.query('SELECT * FROM WordleUsers WHERE Username = $1;', [username]);
+
+        if (results.rows.length === 0) {
+            return 'No user exists'; // Resolve with a message
+        }
+
+        return results.rows[0]; // Resolve with user data
+    } catch (error) {
+        throw error; // Reject with error
+    }
+};
+
+module.exports = {selectRandomWord, getWord, getWords, registerUser, checkIfUserExists };
 

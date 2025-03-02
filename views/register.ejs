@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register With University Wordle</title>
+
+    <style>
+
+        * {
+
+            background-image: url('res/background1.png');
+
+        }
+        
+        #background {
+
+            width: 25vw;
+            height: 50vh;
+            top: 25vh;
+            left: 37.5vw;
+            background-color: greenyellow;
+            position: absolute;
+        }
+
+        h1 {
+
+            text-align: center;
+        }
+
+        #login-form {
+
+            width: 12.5vw;
+            height: 40vh;
+            top: 30vh;
+            width: 20vw;
+            left: 40vw;
+            position: absolute;
+            display: grid;
+            grid-template-columns: 1fr;
+            text-align: center;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+
+        <h1>Register With University Wordle</h1>
+        <div id="background"></div>
+
+        <form method="POST" action="./" id="login-form">
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <br>
+            <label for="password">Password</label>
+            <input type="text" id="password" name="password">
+            <br>
+            
+            <button type="submit" id="register-button">Register</button>
+        </form>
+
+        
+
+    </div>
+</body>
+</html>
