@@ -5,7 +5,6 @@ const db = require('../db.js')
 
 passport.use(new LocalStrategy(async function(username,password,done) {
 
-    console.log('Authenticating')
     try {
 
         let u = ''

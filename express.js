@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const passport = require('passport')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 const app = express()
 const PORT = process.env.PORT || 3000;
@@ -15,8 +16,8 @@ app.use(helmet())
 
 app.use(session({
 
-    secret: "#TERCES",
-    cookie: {maxAge: 60 * 60 * 48 * 1000},
+    secret: process.env.SECRET_KEY || "fallback-secret",
+    cookie: {maxAge: 1000 * 60 * 60 * 48},
     secure: false,
     saveUninitialized: false,
     resave: false,
@@ -37,7 +38,14 @@ app.set('views','./views')
 
 app.get('/wordle/',(req,res,next) => {
 
-    res.render('wordle')
+    if(req.user !== undefined) {
+
+        res.render('wordle')
+    } else {
+
+        res.render('home-page')
+    }
+    
 
 })
 
@@ -59,6 +67,56 @@ app.get('/login/',(req,res,next) => {
 
 })
 
+app.get('/profile/',(req,res) => {
+
+    if(!req.isAuthenticated) {
+
+        res.status(401).send("User wasn't successfully authenticated")
+    }
+
+    res.json({user: req.user})
+
+})
+
+app.post('/plays/',async (req,res,next) => {
+
+    await db.increaseNumPlays(req.user.username)
+    res.status(201).send()
+})
+
+app.get('/streak/',async (req,res,next) => {
+
+    const currStreak = await db.getUserStreak(req.user.username)
+    res.json({streak: currStreak})
+})
+
+app.post('/streak/',async (req,res,next) => {
+
+    await db.updateUserStreak(req.user.username,req.body.increase)
+    res.status(201).send()
+})
+
+app.post('/winrate/',async (req,res,next) => {
+
+    await db.updateWinRate(req.user.username)
+    res.status(201).send()
+
+})
+
+app.get('/winrate/',async (req,res,next) => {
+
+    const winRate = await db.getWinRate(req.user.username)
+    res.json({winRate: winRate})
+
+})
+
+app.post('/wins/',async (req,res,next) => {
+
+    await db.increaseWins(req.user.username)
+    res.status(201).send()
+})
+
+
 app.post('/register/',async (req,res,next) => {
 
     const {username,password} = req.body
@@ -70,6 +128,7 @@ app.post('/register/',async (req,res,next) => {
 
             const u = await db.checkIfUserExists(username)
 
+            console.log(u)
             if(u === 'No user exists') {
 
                 resolve()
@@ -79,6 +138,7 @@ app.post('/register/',async (req,res,next) => {
             }
         } catch(error) {
 
+            throw(error)
             reject(error)
         }
 
@@ -115,6 +175,16 @@ app.get('/words/',db.getWords)
 app.get('/words/:word',db.getWord)
 
 app.get('/randomword/',db.selectRandomWord)
+
+app.get('/topten/',async (req,res,next) => {
+
+    const user = req.user.username
+    
+    const { userBestStreak, topTen } = await db.showTopTenPlusCurrent(user)
+
+    res.json({userBestStreak: userBestStreak, topTen: topTen })
+
+})
 
 app.listen(PORT, () => {
 
