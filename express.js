@@ -176,16 +176,6 @@ app.get('/words/:word',db.getWord)
 
 app.get('/randomword/',db.selectRandomWord)
 
-app.get('/topten/',async (req,res,next) => {
-
-    const user = req.user.username
-    
-    const { userBestStreak, topTen } = await db.showTopTenPlusCurrent(user)
-
-    res.json({userBestStreak: userBestStreak, topTen: topTen })
-
-})
-
 app.listen(PORT, () => {
 
     console.log('Listening on port ' + PORT)

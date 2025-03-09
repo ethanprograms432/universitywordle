@@ -239,30 +239,6 @@ async function increaseWins(username) {
 
 }
 
-async function showTopTenPlusCurrent(username) {
-
-    try {
-
-        let topTen = {}
-
-        const resultsOne = await pool.query('SELECT BestStreak FROM WordleUsers WHERE Username = $1',[username])
-
-        const userBestStreak = results.rows[0].userBestStreak
-
-        const resultsTwo = await pool.query('SELECT Username,BestStreak FROM WordleUsers ORDER BY BestStreak DESC LIMIT 10;')
-
-        for (let i = 0; i < resultsTwo.rows.length; i++) {
-
-            topTen[i] = {username: resultsTwo.rows[i].username, streak: resultsTwo.rows[i].beststreak}
-
-        }
-
-        return { userBestStreak, topTen }
-
-    } catch(err) { throw(err) }
-
-}
-
 module.exports = {
     selectRandomWord, 
     getWord, 
@@ -274,7 +250,6 @@ module.exports = {
     increaseNumPlays, 
     increaseWins, 
     getWinRate, 
-    updateWinRate, 
-    showTopTenPlusCurrent
+    updateWinRate
 };
 

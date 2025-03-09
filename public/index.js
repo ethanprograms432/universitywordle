@@ -32,17 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     successScreen = document.getElementById('success-screen')
     failureScreen = document.getElementById('failure-screen')
 
-    viewLeaderboardButtons = Array.from(document.getElementsByClassName('view-leaderboard'))
     playAgainButtons = Array.from(document.getElementsByClassName('play-again'))
-
-    viewLeaderboardButtons.forEach((button) => {
-
-        button.addEventListener('click',() => {
-
-
-        })
-
-    })
 
     playAgainButtons.forEach((button) => {
 

@@ -1,0 +1,204 @@
+openapi: 3.0.1
+info:
+  title: University Wordle API
+  version: 1.0.0
+  description: >-
+    A basic API for handling access to a database of university words that the
+    players guess, and a database of users that are registered with University
+    Wordle
+paths:
+  /profile/:
+    summary: Retrieves the username currently logged into University Wordle
+    description: >-
+      Allows the DOM index.js script to access the username of the user
+      currently playing the Wordle game.
+    get:
+      summary: >-
+        Retrieves the username associated with the user playing University
+        Wordle
+      description: ''
+      operationId: '1'
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Username:
+                  value: |-
+                    {
+                    username: 'John'
+                    }
+  /streak:
+    summary: >-
+      The endpoint used to get a users current Wordle streak, and it is also
+      used to update the users streak by increasing it or resetting it to zero
+    description: ''
+    get:
+      summary: Gets the users current University Wordle streak
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+    post:
+      summary: >-
+        Posts whether the user was successful in their current Wordle game so
+        that the info can be used to update the users streak
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Example request body:
+                  value: |-
+                    {
+                    username: 'John',
+                    increase: true
+                    }
+  /plays/:
+    summary: Endpoint used to increase the play counter for University Wordle users.
+    description: Endpoint used to increase the play counter for University Wordle users.
+    post:
+      summary: Operation used to update the players "num plays" counter
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+  /winrate/:
+    summary: >-
+      Endpoint used to retrieve a users current win rate, as well as update it
+      based on their play result
+    description: ''
+    get:
+      summary: Gets the users current win rate
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Win Rate Response Body:
+                  value: |-
+                    {
+                    winRate: 0.443
+                    )
+    post:
+      summary: Endpoint used to update a win rate for a specific University Wordle user
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+  /wins/:
+    summary: >-
+      Endpoint used to access or update the number of wins a University Wordle
+      user has
+    description: ''
+    post:
+      summary: Updates the number of the University Wordle user's wins
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+  /register/:
+    summary: >-
+      Endpoint used to verify if a user exists before registering them into the
+      database
+    post:
+      summary: >-
+        Operation used to authenticate prior to registration of a new University
+        Wordle user
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Registration Body:
+                  value: |-
+                    {
+                    username: 'programmer',
+                    password: 1234
+                    }
+  /login/:
+    summary: >-
+      Endpoint used to recieve user credentials when logging in, and then
+      authenticate their credentials before logging them into the Wordle game.
+    post:
+      summary: >-
+        Operation used to authenticate, and log a user into the Wordle game
+        based on pre-entered credentials
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Login Body:
+                  value: |-
+                    {
+                    username: 'programmer',
+                    password: 1234
+                    }
+  /words/:
+    summary: >-
+      Endpoint used to retrieve all the university related words that exist in
+      the database
+    description: >-
+      It's primary use is so that the /randomword/ route can select a random
+      word from all available options
+    get:
+      summary: Used to retrieve a list of all the words in the database
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Sample Response:
+                  value: >-
+                    [{"word":"DRINK","id":1,"num_plays":null,"num_guesses":null,"average_guesses":null},{"word":"STUDY","id":2,"num_plays":null,"num_guesses":null,"average_guesses":null}]
+  /words/:word:
+    summary: Retrieves a specific word from the database
+    get:
+      summary: Operation used to retrieve a specific word from the database
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Example Word Response:
+                  value: >-
+                    {"word":"STUDY","id":2,"num_plays":null,"num_guesses":null,"average_guesses":null}
+  /randomword/:
+    summary: An endpoint used to retrieve a random word from the database
+    get:
+      summary: Operation used to retrieve a random word from the database
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                Example Random Word Response:
+                  value: >-
+                    {"word":"STUDY","id":2,"num_plays":null,"num_guesses":null,"average_guesses":null}

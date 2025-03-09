@@ -126,24 +126,3 @@ html {
     background-color: gray;
     border: 1px solid gray;
 }
-
-#leaderboard {
-
-    display: none;
-    position: absolute;
-    width: 500px;
-    height: 1000px;
-    background-color: green;
-    color: yellow;
-    border: 1px solid green;
-
-}
-
-/*
-.leaderboard-slot {
-
-    width: 
-    position: absolute;
-
-}
-    */
