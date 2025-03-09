@@ -153,7 +153,7 @@ app.post('/register/',async (req,res,next) => {
 
             await db.registerUser(username,hash)
 
-            res.redirect('../')
+            res.redirect('./')
         } catch(error) {
 
             res.status(500).send('Server error')
@@ -162,13 +162,13 @@ app.post('/register/',async (req,res,next) => {
 
     }).catch(() => {
 
-        res.redirect('./')
+        res.redirect('../')
 
     })
 
 })
 
-app.post('/login/', passport.authenticate('local',{successRedirect: '../wordle', failureRedirect: './'}))
+app.post('/login/', passport.authenticate('local',{successRedirect: '../wordle', failureRedirect: '../'}))
 
 app.get('/words/',db.getWords)
 

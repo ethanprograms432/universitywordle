@@ -309,7 +309,6 @@ const showSuccessMessage = (callback) => {
 
         if(guessed) {
 
-            console.log('Succeeded')
             clearInterval(interval)
             callback()
         }
@@ -324,7 +323,6 @@ const showFailureMessage = (callback) => {
 
         if(guessed === false && currentSlot >= 24) {
 
-            console.log('Failed')
             clearInterval(interval)
             callback()
         }
@@ -345,7 +343,6 @@ async function getUser() {
 
             result.then(result => {
 
-                console.log(result)
                 return result.user.username
 
             }).catch(() => {

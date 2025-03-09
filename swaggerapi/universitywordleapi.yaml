@@ -171,7 +171,7 @@ paths:
               examples:
                 Sample Response:
                   value: >-
-                    [{"word":"DRINK","id":1,"num_plays":null,"num_guesses":null,"average_guesses":null},{"word":"STUDY","id":2,"num_plays":null,"num_guesses":null,"average_guesses":null}]
+                    [{"word":"DRINK","id":1},{"word":"STUDY","id":2}]
   /words/:word:
     summary: Retrieves a specific word from the database
     get:
@@ -186,7 +186,7 @@ paths:
               examples:
                 Example Word Response:
                   value: >-
-                    {"word":"STUDY","id":2,"num_plays":null,"num_guesses":null,"average_guesses":null}
+                    {"word":"STUDY","id":2}
   /randomword/:
     summary: An endpoint used to retrieve a random word from the database
     get:
@@ -201,4 +201,4 @@ paths:
               examples:
                 Example Random Word Response:
                   value: >-
-                    {"word":"STUDY","id":2,"num_plays":null,"num_guesses":null,"average_guesses":null}
+                    {"word":"STUDY","id":2}
