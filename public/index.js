@@ -3,6 +3,7 @@ let currentSlot = 0
 let wordleSlots = [];
 let word = "";
 let guessed = false;
+let lost = false;
 
 let failureScreen = null
 let successScreen = null
@@ -299,6 +300,10 @@ function colorLetters(num) {
 
         guessed = true
 
+    } else if(currentSlot >= 24 && !guessed) {
+
+        lost = true
+
     }
 
 }
@@ -307,7 +312,7 @@ const showSuccessMessage = (callback) => {
 
     const interval = setInterval(() => {
 
-        if(guessed) {
+        if(guessed && !lost) {
 
             clearInterval(interval)
             callback()
@@ -321,7 +326,7 @@ const showFailureMessage = (callback) => {
 
     const interval = setInterval(() => {
 
-        if(guessed === false && currentSlot >= 24) {
+        if(lost && currentSlot >= 24) {
 
             clearInterval(interval)
             callback()
