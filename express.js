@@ -153,7 +153,7 @@ app.post('/register/',async (req,res,next) => {
 
             await db.registerUser(username,hash)
 
-            res.redirect('./')
+            res.redirect('../')
         } catch(error) {
 
             res.status(500).send('Server error')
