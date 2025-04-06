@@ -298,41 +298,13 @@ function colorLetters(num) {
 
     if(correctlyGuessed === 5) {
 
-        guessed = true
+        showSuccessMessage()
 
     } else if(currentSlot >= 24 && !guessed) {
 
-        lost = true
+        showFailureMessage()
 
     }
-
-}
-
-const showSuccessMessage = (callback) => {
-
-    const interval = setInterval(() => {
-
-        if(guessed && !lost) {
-
-            clearInterval(interval)
-            callback()
-        }
-
-    }, 10)
- 
-}
-
-const showFailureMessage = (callback) => {
-
-    const interval = setInterval(() => {
-
-        if(lost && currentSlot >= 24) {
-
-            clearInterval(interval)
-            callback()
-        }
-
-    }, 10)
 
 }
 
@@ -366,7 +338,7 @@ async function getUser() {
 
 }
 
-showSuccessMessage(async () => {
+const showSuccessMessage = async () => {
 
     try {
 
@@ -438,9 +410,9 @@ showSuccessMessage(async () => {
 
     } catch(err) { throw(err) }
 
-})
+}
 
-showFailureMessage(async () => {
+const showFailureMessage = async () => {
 
     try {
 
@@ -491,5 +463,5 @@ showFailureMessage(async () => {
 
     } catch(err) { throw(err) }
 
-})
+}
 
