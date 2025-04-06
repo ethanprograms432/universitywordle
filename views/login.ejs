@@ -42,6 +42,11 @@
 
         }
 
+        #error-text {
+
+            color: red;
+        }
+
     </style>
 </head>
 
@@ -53,6 +58,7 @@
 
         <form method="POST" action="./" id="login-form">
 
+            <h4 id="error-text"><%= errorText %></h4>
             <label for="username">Username</label>
             <input type="text" id="username" name="username">
             <br>

@@ -19,6 +19,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
+    "connect-redis": "^8.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
@@ -28,6 +29,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.13.3",
-    "postgres": "^3.4.5"
+    "postgres": "^3.4.5",
+    "redis": "^4.7.0"
   }
 }

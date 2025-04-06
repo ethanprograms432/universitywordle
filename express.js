@@ -6,7 +6,9 @@ const helmet = require('helmet')
 const passport = require('passport')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
+
 require('dotenv').config()
+
 
 const app = express()
 const PORT = process.env.PORT || 3000;
@@ -57,13 +59,22 @@ app.get('/',(req,res,next) => {
 
 app.get('/register/',(req,res,next) => {
 
-    res.render('register')
+
+    res.render('register', {errorText: ""})
 
 })
 
 app.get('/login/',(req,res,next) => {
 
-    res.render('login')
+    if(req.query.error) {
+
+        res.render('login',{errorText: "Username and/or password is incorrect!"})
+
+    } else {
+
+        res.render('login',{errorText: ""})
+    }
+    
 
 })
 
@@ -153,7 +164,7 @@ app.post('/register/',async (req,res,next) => {
 
             await db.registerUser(username,hash)
 
-            res.redirect('./')
+            res.redirect('../')
         } catch(error) {
 
             res.status(500).send('Server error')
@@ -162,13 +173,13 @@ app.post('/register/',async (req,res,next) => {
 
     }).catch(() => {
 
-        res.redirect('../')
+        res.render("register",{errorText: "User already exists!"})
 
     })
 
 })
 
-app.post('/login/', passport.authenticate('local',{successRedirect: '../wordle', failureRedirect: '../'}))
+app.post('/login/', passport.authenticate('local',{successRedirect: '../wordle', failureRedirect: './?error=true'}))
 
 app.get('/words/',db.getWords)
 

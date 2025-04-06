@@ -318,7 +318,7 @@ const showSuccessMessage = (callback) => {
             callback()
         }
 
-    }, 100)
+    }, 10)
  
 }
 
@@ -332,7 +332,7 @@ const showFailureMessage = (callback) => {
             callback()
         }
 
-    }, 100)
+    }, 10)
 
 }
 
